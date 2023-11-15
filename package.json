@@ -1,0 +1,16 @@
+{
+  "name": "orval-bug",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "orval": "rm -fr ./api && orval --config ./orval.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "orval": "^6.20.0"
+  }
+}

@@ -1,0 +1,483 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Partner Service REST APIs",
+    "description": "Partner Service REST APIs Documentation",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://obscured",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "partners",
+      "description": "Partner management REST APIs"
+    }
+  ],
+  "paths": {
+    "/api/partners": {
+      "get": {
+        "tags": ["partners", "GET"],
+        "summary": "Retrieve a Partner by name",
+        "operationId": "getPartnerByName",
+        "parameters": [
+          {
+            "name": "partnerName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Partner"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A Partner with name '{partnerName}' was not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["partners", "POST"],
+        "summary": "Create a Partner",
+        "operationId": "createPartner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Partner"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "HTTP Status 201 Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Partner"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "HTTP Status 400 Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Partner"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["partners", "POST"],
+        "summary": "Delete a Partner by Id",
+        "operationId": "deletePartnerById",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "HTTP Status 204 No Content"
+          },
+          "404": {
+            "description": "HTTP Status 404 Not Found"
+          }
+        }
+      }
+    },
+    "/api/partners/ecom": {
+      "get": {
+        "tags": ["partners", "GET", "ecomPartners"],
+        "summary": "Retrieve an Ecom Partner by Partner Id",
+        "operationId": "getEcomPartnerByPartnerId",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcomPartner"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An Ecom Partner with Partner Id '{partnerId}' was not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["POST", "partners", "ecomPartners"],
+        "summary": "Create an Ecom Partner",
+        "operationId": "createEcomPartner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EcomPartner"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "HTTP Status 201 Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcomPartner"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "HTTP Status 400 Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcomPartner"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partners/{partnerId}": {
+      "get": {
+        "tags": ["partners", "GET"],
+        "summary": "Retrieve a Partner by Id",
+        "operationId": "getPartnerById",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Partner"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A Partner with Id '{partnerId}' was not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EcomPartner": {
+        "required": [
+          "cartUrl",
+          "ecomPartnerId",
+          "frontRear",
+          "partNumber",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "ecomPartnerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cartUrl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "smallImage": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "post": {
+            "maxLength": 1,
+            "minLength": 0,
+            "pattern": "[YN]",
+            "type": "string"
+          },
+          "autoMake": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "autoModel": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "autoYear": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "wheelMake": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "wheelModel": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "wheelFinish": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "frontRear": {
+            "maxLength": 1,
+            "minLength": 0,
+            "pattern": "[YN]",
+            "type": "string"
+          },
+          "partNumber": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "price": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "quantity": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "diameter": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "width": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearPartNumber": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearPrice": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearQuantity": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearDiameter": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearWidth": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "tireWidth": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "tireRatio": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearTireWidth": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "rearTireRatio": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "extraFields": {
+            "type": "string"
+          }
+        },
+        "description": "EcomPartner Entity"
+      },
+      "Partner": {
+        "required": ["dollarMarkup", "partnerName", "percentMarkup"],
+        "type": "object",
+        "properties": {
+          "partnerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "partnerName": {
+            "maxLength": 15,
+            "minLength": 0,
+            "type": "string"
+          },
+          "companyName": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "homeUrl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "partnerType": {
+            "maxLength": 1,
+            "minLength": 0,
+            "pattern": "[RW]",
+            "type": "string"
+          },
+          "permissionsGroup": {
+            "maxLength": 15,
+            "minLength": 0,
+            "type": "string"
+          },
+          "brandFilter": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateLastUsed": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalUses": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "totalSearches": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "percentMarkup": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "dollarMarkup": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "tpmsPercentMarkup": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "tpmsDollarMarkup": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "header": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "footer": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "pdfLogo": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "pdfBackground": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "pdfHeaderCopy": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "showPdf": {
+            "maxLength": 1,
+            "minLength": 0,
+            "pattern": "[YN]",
+            "type": "string"
+          },
+          "excludePriceMessage": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "ecomPartner": {
+            "$ref": "#/components/schemas/EcomPartner"
+          }
+        },
+        "description": "Partner Entity"
+      }
+    }
+  }
+}
